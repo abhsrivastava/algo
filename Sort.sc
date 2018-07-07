@@ -1,4 +1,18 @@
 object Sort {
+
+    def quickSort(list: List[Int]) : List[Int] = {
+        list match {
+            case Nil => Nil
+            case List(a) => List(a)
+            case _ => 
+                // choose a pivot
+                val r = new scala.util.Random
+                val pivot = r.nextInt(list.size)
+                val (smaller, larger) = list.partition(_ < list(pivot))
+                merge(quickSort(smaller), quickSort(larger))
+        }
+    }
+
     def mergeSort(input: List[Int]) : List[Int] = {
         input match {
             case Nil => Nil

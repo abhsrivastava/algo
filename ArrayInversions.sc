@@ -5,8 +5,9 @@
 import $file.Sort, Sort.Sort._
 @main
 def main() = {
-    val input = List(3, 6, 2, 8, 1, 5, 4)
-    getInversions(input)
+    val input = scala.io.Source.fromFile("./inversions.txt").getLines.toList.map(_.toInt)
+    val result = getInversions(input)
+    println(s"number of inversions ${result.size}")
 }
 
 // sum of 1, 2, 3

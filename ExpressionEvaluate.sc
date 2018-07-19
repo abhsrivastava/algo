@@ -30,8 +30,26 @@ def main(input: String) : Unit = {
             }
         }
     }
+
+    def evaluate(input: String) : Double = {
+        input.foldLeft(Stack.empty[Double]){case (acc, c) => 
+            c match {
+                case x if x.isDigit => 
+                    acc.push(x.toString.toDouble)
+                case '+' => 
+                    acc.push(acc.pop + acc.pop)
+                case '-' => 
+                    acc.push(acc.pop - acc.pop)
+                case '*' => 
+                    acc.push(acc.pop * acc.pop)
+                case '/' => 
+                    val x = acc.pop
+                    val y = acc.pop
+                    acc.push(y / x)
+            }
+        }.pop
+    }
     val (postfix, operator) = toPostFix(input.toList.filterNot(_ == ' '))
-    println(s"postfix $postfix")
-    println(s"operator ${operator}")
-    println((postfix ++ operator.toList).mkString)
+    println(s"expression ${(postfix ++ operator.toList).mkString}")
+    println(evaluate((postfix ++ operator.toList).mkString))
 }
